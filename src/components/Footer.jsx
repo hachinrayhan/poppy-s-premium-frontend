@@ -1,17 +1,16 @@
 import logo from "../assets/pp.png";
 const Footer = () => {
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content">
+    <footer className="footer footer-center p-10 bg-neutral text-neutral-content">
       <aside>
-        <img width="80" height="80" src={logo} />
-        <p>
-          POPPY&apos;S PREMIUM
-          <br />
+        <img className="w-24" src={logo} />
+        <p className="font-bold">
+          POPPY&apos;S PREMIUM <br />
           &quot;Elevating Flavors, Enriching Traditions&quot;
         </p>
+        <p>Copyright © 2024 - All right reserved</p>
       </aside>
       <nav>
-        <h6 className="footer-title">Social</h6>
         <div className="grid grid-flow-col gap-4">
           <a>
             <svg
