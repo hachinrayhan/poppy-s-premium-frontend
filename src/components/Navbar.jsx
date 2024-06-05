@@ -1,11 +1,25 @@
-import { Link } from "react-router-dom";
-// import useAuth from "../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  //   const { user, logOut } = useAuth();
-  //   const handleLogout = async () => {
-  //     await logOut();
-  //   };
+  const { user, logOut } = useAuth();
+  const [dbUser, setDBUser] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut();
+    toast("You have logged out. See you soon!");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/email/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setDBUser(data));
+  }, [user?.email]);
+
   const navItems = (
     <>
       <li>
@@ -17,15 +31,26 @@ const Navbar = () => {
       <li>
         <Link to={"/contacts"}>Contact Us</Link>
       </li>
-      <li>
-        <Link to={"/dashboard"}>Dashboard</Link>
-      </li>
-      <li>
-        <button>Logout</button>
-      </li>
-      <li>
-        <Link to={"/login"}>Login</Link>
-      </li>
+      {user ? (
+        <>
+          {dbUser?.role === "admin" ? (
+            <li>
+              <Link to={"/dashboard/admin"}>Dashboard</Link>
+            </li>
+          ) : (
+            <li>
+              <Link to={"/dashboard/user"}>Dashboard</Link>
+            </li>
+          )}
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to={"/login"}>Login</Link>
+        </li>
+      )}
     </>
   );
   return (
