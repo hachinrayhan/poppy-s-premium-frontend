@@ -2,36 +2,47 @@ import { Link } from "react-router-dom";
 
 const AdminSidebar = () => {
   return (
-    <div className="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 hidden lg:block">
-      <div className="text-center text-2xl font-bold">
-        <Link to="/dashboard/admin">Admin Panel</Link>
+    <div className="hidden md:block w-64 h-full bg-gray-800 text-white">
+      <div className="p-4">
+        <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+        <nav className="mt-4">
+          <ul>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/admin/profile"
+                className="hover:text-gray-400"
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/admin/update-profile"
+                className="hover:text-gray-400"
+              >
+                Update Profile
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/admin/all-users"
+                className="hover:text-gray-400"
+              >
+                All Users
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/admin/all-products"
+                className="hover:text-gray-400"
+              >
+                All Products
+              </Link>
+            </li>
+            {/* Add other admin links here */}
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <Link
-          to="/dashboard/admin/profile"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700"
-        >
-          Profile
-        </Link>
-        <Link
-          to="/dashboard/admin/update-profile"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700"
-        >
-          Update Profile
-        </Link>
-        <Link
-          to="/dashboard/admin/users"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700"
-        >
-          All Users
-        </Link>
-        <Link
-          to="/dashboard/admin/products"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700"
-        >
-          All Products
-        </Link>
-      </nav>
     </div>
   );
 };

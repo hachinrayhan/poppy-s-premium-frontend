@@ -2,30 +2,51 @@ import { Link } from "react-router-dom";
 
 const UserSidebar = () => {
   return (
-    <div className="bg-blue-600 text-white w-64 space-y-6 py-7 px-2 hidden lg:block">
-      <div className="text-center text-2xl font-bold">
-        <Link to="/dashboard/user">User Panel</Link>
+    <div className="hidden md:block w-64 h-full bg-gray-800 text-white">
+      <div className="p-4">
+        <Link to={"/dashboard/user"} className="text-2xl font-bold">
+          User Dashboard
+        </Link>
+        <nav className="mt-4">
+          <ul>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/user/profile"
+                className="hover:text-gray-400"
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/user/update-profile"
+                className="hover:text-gray-400"
+              >
+                Update Profile
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/user/order-history"
+                className="hover:text-gray-400"
+              >
+                Order History
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link to="/" className="hover:text-gray-400">
+                Home
+              </Link>
+            </li>
+            <li className="mt-2">
+              <button onClick={""} className="hover:text-gray-400">
+                Logout
+              </button>
+            </li>
+            {/* Add other user links here */}
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <Link
-          to="/dashboard/user/profile"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700"
-        >
-          Profile
-        </Link>
-        <Link
-          to="/dashboard/user/update-profile"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700"
-        >
-          Update Profile
-        </Link>
-        <Link
-          to="/dashboard/user/orders"
-          className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700"
-        >
-          Order History
-        </Link>
-      </nav>
     </div>
   );
 };

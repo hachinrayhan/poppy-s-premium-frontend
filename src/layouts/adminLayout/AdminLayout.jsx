@@ -4,11 +4,11 @@ import AdminNavbar from "./AdminNavbar";
 
 const AdminLayout = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen">
       <AdminSidebar />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1">
         <AdminNavbar />
-        <main className="flex-1 p-4">
+        <main className="p-4">
           <Outlet />
         </main>
       </div>

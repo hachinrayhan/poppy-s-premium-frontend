@@ -2,28 +2,57 @@ import { Link } from "react-router-dom";
 
 const UserNavbar = () => {
   return (
-    <nav className="bg-blue-600 text-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/dashboard/user" className="text-xl font-bold">
-              User Dashboard
-            </Link>
-          </div>
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/dashboard/user/profile" className="hover:text-gray-300">
+    <div className="md:hidden bg-gray-800 text-white p-4">
+      <div className="flex justify-between items-center">
+        <Link to={"/dashboard/user"} className="text-2xl font-bold">
+          User Dashboard
+        </Link>
+        <button
+          onClick={() =>
+            document.getElementById("user-menu").classList.toggle("hidden")
+          }
+          className="text-xl focus:outline-none"
+        >
+          ☰
+        </button>
+      </div>
+      <nav id="user-menu" className="mt-4 hidden">
+        <ul>
+          <li className="mt-2">
+            <Link to="/dashboard/user/profile" className="hover:text-gray-400">
               Profile
             </Link>
+          </li>
+          <li className="mt-2">
             <Link
               to="/dashboard/user/update-profile"
-              className="hover:text-gray-300"
+              className="hover:text-gray-400"
             >
               Update Profile
             </Link>
-          </div>
-        </div>
-      </div>
-    </nav>
+          </li>
+          <li className="mt-2">
+            <Link
+              to="/dashboard/user/order-history"
+              className="hover:text-gray-400"
+            >
+              Order History
+            </Link>
+          </li>
+          <li className="mt-2">
+            <Link to="/" className="hover:text-gray-400">
+              Home
+            </Link>
+          </li>
+          <li className="mt-2">
+            <button onClick={""} className="hover:text-gray-400">
+              Logout
+            </button>
+          </li>
+          {/* Add other user links here */}
+        </ul>
+      </nav>
+    </div>
   );
 };
 
