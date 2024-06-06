@@ -8,11 +8,15 @@ import UserDashboard from "../pages/dashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import AdminLayout from "../layouts/adminLayout/AdminLayout";
 import UserLayout from "../layouts/userLayout/UserLayout";
+import ProfilePage from "../pages/ProfilePage";
+import ErrorPage from "../pages/ErrorPage";
+import ProfileUpdate from "../pages/ProfileUpdate";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -35,10 +39,19 @@ export const router = createBrowserRouter([
         <AdminLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
         element: <AdminDashboard />,
+      },
+      {
+        path: "/dashboard/admin/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/dashboard/admin/update-profile",
+        element: <ProfileUpdate />,
       },
     ],
   },
@@ -49,10 +62,19 @@ export const router = createBrowserRouter([
         <UserLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
         element: <UserDashboard />,
+      },
+      {
+        path: "/dashboard/user/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/dashboard/user/update-profile",
+        element: <ProfileUpdate />,
       },
     ],
   },
