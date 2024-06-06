@@ -11,6 +11,8 @@ import UserLayout from "../layouts/userLayout/UserLayout";
 import ProfilePage from "../pages/ProfilePage";
 import ErrorPage from "../pages/ErrorPage";
 import ProfileUpdate from "../pages/ProfileUpdate";
+import ProductAdd from "../pages/ProductAdd";
+import ProductsList from "../pages/ProductsLists";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/update-profile",
         element: <ProfileUpdate />,
+      },
+      {
+        path: "/dashboard/admin/add-product",
+        element: <ProductAdd />,
+      },
+      {
+        path: "/dashboard/admin/products-list",
+        element: <ProductsList />,
       },
     ],
   },

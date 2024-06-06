@@ -50,10 +50,10 @@ const AdminNavbar = () => {
           </li>
           <li className="mt-2">
             <Link
-              to="/dashboard/admin/all-products"
+              to="/dashboard/admin/products-list"
               className="hover:text-gray-400"
             >
-              All Products
+              Products List
             </Link>
           </li>
           <li className="mt-2">
