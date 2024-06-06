@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const AdminNavbar = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logOut();
+    toast("You have logged out. See you soon!");
+    navigate("/login");
+  };
   return (
     <div className="md:hidden bg-gray-800 text-white p-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+        <Link to={"/dashboard/admin"} className="text-2xl font-bold">
+          Admin Dashboard
+        </Link>
         <button
           onClick={() =>
             document.getElementById("admin-menu").classList.toggle("hidden")
@@ -45,7 +56,16 @@ const AdminNavbar = () => {
               All Products
             </Link>
           </li>
-          {/* Add other admin links here */}
+          <li className="mt-2">
+            <Link to="/" className="hover:text-gray-400">
+              Home
+            </Link>
+          </li>
+          <li className="mt-2">
+            <button onClick={handleLogout} className="hover:text-gray-400">
+              Logout
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

@@ -43,7 +43,11 @@ const ProfileUpdate = () => {
         },
       });
       toast.success("Updated Profile Successfully!");
-      navigate("/dashboard/user/profile");
+      navigate(
+        profile?.role === "admin"
+          ? "/dashboard/admin/profile"
+          : "/dashboard/user/profile"
+      );
     } catch (error) {
       console.error("Error updating profile:", error);
     }
