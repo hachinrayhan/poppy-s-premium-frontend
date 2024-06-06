@@ -14,6 +14,9 @@ import ProfileUpdate from "../pages/ProfileUpdate";
 import ProductAdd from "../pages/ProductAdd";
 import ProductsList from "../pages/ProductsLists";
 import ProductUpdate from "../pages/ProductUpdate";
+import ProductDetails from "../pages/ProductDetails";
+import AllProducts from "../pages/AllProducts";
+import ContactUs from "../pages/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +35,18 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration />,
+      },
+      {
+        path: `/products`,
+        element: <AllProducts />,
+      },
+      {
+        path: `/products/:id`,
+        element: <ProductDetails />,
+      },
+      {
+        path: "/contacts",
+        element: <ContactUs />,
       },
     ],
   },
