@@ -1,12 +1,22 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../components/GoogleLogin";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const Registration = () => {
-  const { createUser } = useAuth();
+  const { user, createUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, from, navigate]);
+
   const {
     register,
     handleSubmit,
@@ -30,7 +40,6 @@ const Registration = () => {
           console.log(data);
           localStorage.setItem("token", data.token);
           toast.success("Registration Successful!");
-          navigate("/");
           reset();
         });
     });

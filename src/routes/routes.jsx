@@ -42,7 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: `/products/:id`,
-        element: <ProductDetails />,
+        element: (
+          <ProtectedRoute>
+            <ProductDetails />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/contacts",
