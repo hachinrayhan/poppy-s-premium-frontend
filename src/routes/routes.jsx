@@ -13,6 +13,7 @@ import ErrorPage from "../pages/ErrorPage";
 import ProfileUpdate from "../pages/ProfileUpdate";
 import ProductAdd from "../pages/ProductAdd";
 import ProductsList from "../pages/ProductsLists";
+import ProductUpdate from "../pages/ProductUpdate";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/products-list",
         element: <ProductsList />,
+      },
+      {
+        path: `/dashboard/admin/product-update/:id`,
+        element: <ProductUpdate />,
       },
     ],
   },
