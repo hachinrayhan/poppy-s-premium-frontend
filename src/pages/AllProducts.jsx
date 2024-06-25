@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SingleProduct from "./SingleProduct";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const AllProducts = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products");
+        const response = await axios.get(
+          "https://poppys-premium-backend.vercel.app/products"
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -16,6 +19,10 @@ const AllProducts = () => {
     };
     fetchProducts();
   }, []);
+
+  if (!products) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="container mx-auto p-4">

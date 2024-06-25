@@ -7,11 +7,14 @@ const ProductManageCard = ({ product, refetch }) => {
   const { _id, name, price, description, imageUrl } = product;
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/products/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.delete(
+        `https://poppys-premium-backend.vercel.app/products/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       refetch(_id);
       toast.success("Product Deleted");
     } catch (error) {

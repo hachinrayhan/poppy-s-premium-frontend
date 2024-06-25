@@ -3,24 +3,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../components/GoogleLogin";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
 
 const Registration = () => {
-  const { user, createUser } = useAuth();
+  const { createUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
 
-  useEffect(() => {
-    if (user) {
-      navigate(from, { replace: true });
-    }
-  }, [user, from, navigate]);
-
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -28,7 +20,7 @@ const Registration = () => {
     createUser(data.email, data.password).then((result) => {
       const email = result.user.email;
       const userInfo = { email, name: data.name };
-      fetch("http://localhost:5000/users", {
+      fetch("https://poppys-premium-backend.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -40,7 +32,7 @@ const Registration = () => {
           console.log(data);
           localStorage.setItem("token", data.token);
           toast.success("Registration Successful!");
-          reset();
+          navigate(from, { replace: true });
         });
     });
   };

@@ -13,7 +13,7 @@ const ProfileUpdate = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/users/email/${user.email}`,
+          `https://poppys-premium-backend.vercel.app/users/email/${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,11 +37,15 @@ const ProfileUpdate = () => {
     e.preventDefault();
     const { _id, ...updatedProfile } = profile;
     try {
-      await axios.patch(`http://localhost:5000/users/${_id}`, updatedProfile, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.patch(
+        `https://poppys-premium-backend.vercel.app/users/${_id}`,
+        updatedProfile,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Updated Profile Successfully!");
       navigate(
         profile?.role === "admin"

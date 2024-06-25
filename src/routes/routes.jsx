@@ -17,6 +17,7 @@ import ProductUpdate from "../pages/ProductUpdate";
 import ProductDetails from "../pages/ProductDetails";
 import AllProducts from "../pages/AllProducts";
 import ContactUs from "../pages/ContactUs";
+import OrderHistory from "../pages/OrderHistory";
 
 export const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/user/update-profile",
         element: <ProfileUpdate />,
+      },
+      {
+        path: "/dashboard/user/order-history",
+        element: <OrderHistory />,
       },
     ],
   },

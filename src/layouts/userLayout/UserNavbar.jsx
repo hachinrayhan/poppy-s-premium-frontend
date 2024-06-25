@@ -8,7 +8,7 @@ const UserNavbar = () => {
   const handleLogout = () => {
     logOut();
     toast("You have logged out. See you soon!");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <div className="md:hidden bg-gray-800 text-white p-4">

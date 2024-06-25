@@ -8,7 +8,7 @@ const AdminNavbar = () => {
   const handleLogout = () => {
     logOut();
     toast("You have logged out. See you soon!");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <div className="md:hidden bg-gray-800 text-white p-4">
@@ -46,6 +46,14 @@ const AdminNavbar = () => {
               className="hover:text-gray-400"
             >
               All Users
+            </Link>
+          </li>
+          <li className="mt-2">
+            <Link
+              to="/dashboard/admin/all-orders"
+              className="hover:text-gray-400"
+            >
+              All Orders
             </Link>
           </li>
           <li className="mt-2">

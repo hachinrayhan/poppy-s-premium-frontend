@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+import OrderModal from "../components/OrderModal";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/products/${id}`
+          `https://poppys-premium-backend.vercel.app/products/${id}`
         );
         setProduct(response.data);
       } catch (error) {
@@ -21,6 +23,10 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleOrderNow = () => {
+    setShowModal(true);
+  };
 
   if (!product) {
     return <LoadingSpinner />;
@@ -40,8 +46,13 @@ const ProductDetails = () => {
         <p className="text-lg text-gray-700 mb-4">
           Category: {product.category}
         </p>
-        <button className="btn btn-primary w-full">Order Now</button>
+        <button onClick={handleOrderNow} className="btn btn-primary w-full">
+          Order Now
+        </button>
       </div>
+      {showModal && (
+        <OrderModal product={product} setShowModal={setShowModal} />
+      )}
     </div>
   );
 };

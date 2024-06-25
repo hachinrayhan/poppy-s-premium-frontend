@@ -8,7 +8,7 @@ const UserLayout = () => {
       <UserSidebar />
       <div className="flex-1">
         <UserNavbar />
-        <main className="p-4">
+        <main className="p-4 md:ml-64">
           <Outlet />
         </main>
       </div>

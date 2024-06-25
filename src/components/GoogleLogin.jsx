@@ -1,21 +1,15 @@
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const GoogleLogin = () => {
   const [error, setError] = useState("");
-  const { user, googleLogin } = useAuth();
+  const { googleLogin } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
-
-  useEffect(() => {
-    if (user) {
-      navigate(from, { replace: true });
-    }
-  }, [user, from, navigate]);
 
   const handleGoogleLogin = () => {
     setError("");
@@ -24,7 +18,7 @@ const GoogleLogin = () => {
         const email = result.user.email;
         const name = result.user.displayName;
         const userInfo = { email, name };
-        fetch("http://localhost:5000/users", {
+        fetch("https://poppys-premium-backend.vercel.app/users", {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -36,6 +30,7 @@ const GoogleLogin = () => {
             console.log(data);
             localStorage.setItem("token", data.token);
             toast.success("Login Successful!");
+            navigate(from, { replace: true });
           });
       })
       .catch((error) => {

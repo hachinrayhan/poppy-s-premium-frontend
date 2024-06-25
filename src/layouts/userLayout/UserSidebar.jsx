@@ -8,11 +8,11 @@ const UserSidebar = () => {
   const handleLogout = () => {
     logOut();
     toast("You have logged out. See you soon!");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
-    <div className="hidden md:block w-64 h-full bg-gray-800 text-white">
+    <div className="hidden md:block w-64 h-full bg-gray-800 text-white fixed">
       <div className="p-4">
         <Link to={"/dashboard/user"} className="text-2xl font-bold">
           User Dashboard

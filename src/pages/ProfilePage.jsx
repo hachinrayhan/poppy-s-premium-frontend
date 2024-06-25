@@ -11,7 +11,7 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/users/email/${user.email}`,
+          `https://poppys-premium-backend.vercel.app/users/email/${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

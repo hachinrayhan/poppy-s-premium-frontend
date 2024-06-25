@@ -21,11 +21,15 @@ const ProductAdd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/products", product, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.post(
+        "https://poppys-premium-backend.vercel.app/products",
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Product added succefully!");
       navigate("/dashboard/admin/products-list"); // Redirect to the product list page after adding the product
     } catch (error) {

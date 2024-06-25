@@ -3,25 +3,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../components/GoogleLogin";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
 
-  useEffect(() => {
-    if (user) {
-      navigate(from, { replace: true });
-    }
-  }, [user, from, navigate]);
-
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -30,7 +23,7 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        fetch(`http://localhost:5000/users`, {
+        fetch(`https://poppys-premium-backend.vercel.app/users`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -42,7 +35,7 @@ const Login = () => {
             console.log(data);
             localStorage.setItem("token", data.token);
             toast.success("Login Successful!");
-            reset();
+            navigate(from, { replace: true });
           });
       })
       .catch((error) => {
@@ -112,7 +105,11 @@ const Login = () => {
             </div>
             <p>
               New here?{" "}
-              <Link className="text-blue-600" to="/register">
+              <Link
+                className="text-blue-600"
+                to="/register"
+                state={{ from: location?.state?.from }}
+              >
                 Register
               </Link>
             </p>

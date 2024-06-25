@@ -18,7 +18,7 @@ const ProductUpdate = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/products/${id}`
+          `https://poppys-premium-backend.vercel.app/products/${id}`
         );
         setProduct(response.data);
       } catch (error) {
@@ -41,7 +41,7 @@ const ProductUpdate = () => {
     e.preventDefault();
     try {
       await axios.patch(
-        `http://localhost:5000/products/${_id}`,
+        `https://poppys-premium-backend.vercel.app/products/${_id}`,
         updatedProduct,
         {
           headers: {

@@ -11,11 +11,13 @@ const Navbar = () => {
   const handleLogout = () => {
     logOut();
     toast("You have logged out. See you soon!");
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/email/${user?.email}`)
+    fetch(
+      `https://poppys-premium-backend.vercel.app/users/email/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setDBUser(data));
   }, [user?.email]);
@@ -95,7 +97,7 @@ const Navbar = () => {
       <div className="navbar-end">
         <div className="avatar">
           <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            {/* <img src={user?.photoURL} /> */}
+            <img src={user?.photoURL} alt="user's photo" />
           </div>
         </div>
       </div>

@@ -8,10 +8,10 @@ const AdminSidebar = () => {
   const handleLogout = () => {
     logOut();
     toast("You have logged out. See you soon!");
-    navigate("/login");
+    navigate("/");
   };
   return (
-    <div className="hidden md:block w-64 h-full bg-gray-800 text-white">
+    <div className="hidden md:block w-64 h-full bg-gray-800 text-white fixed">
       <div className="p-4">
         <Link to={"/dashboard/admin"} className="text-2xl font-bold">
           Admin Dashboard
@@ -40,6 +40,14 @@ const AdminSidebar = () => {
                 className="hover:text-gray-400"
               >
                 All Users
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link
+                to="/dashboard/admin/all-orders"
+                className="hover:text-gray-400"
+              >
+                All Orders
               </Link>
             </li>
             <li className="mt-2">
