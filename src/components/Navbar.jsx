@@ -95,11 +95,46 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="avatar">
-          <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src={user?.photoURL} alt="user's photo" />
+        {user && (
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} className="avatar cursor-pointer">
+              <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src={user.photoURL} alt="user's photo" />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {dbUser?.role === "admin" ? (
+                <>
+                  <li>
+                    <Link to={"/dashboard/admin/profile"}>Profile</Link>
+                  </li>
+                  <li>
+                    <Link to={"/dashboard/admin/update-profile"}>
+                      Update Profile
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to={"/dashboard/user/profile"}>Profile</Link>
+                  </li>
+                  <li>
+                    <Link to={"/dashboard/user/update-profile"}>
+                      Update Profile
+                    </Link>
+                  </li>
+                </>
+              )}
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </ul>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
