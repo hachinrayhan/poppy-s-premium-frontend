@@ -18,6 +18,7 @@ import ProductDetails from "../pages/ProductDetails";
 import AllProducts from "../pages/AllProducts";
 import ContactUs from "../pages/ContactUs";
 import OrderHistory from "../pages/OrderHistory";
+import AllOrders from "../pages/AllOrders";
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
       {
         path: `/dashboard/admin/product-update/:id`,
         element: <ProductUpdate />,
+      },
+      {
+        path: "/dashboard/admin/all-orders",
+        element: <AllOrders />,
       },
     ],
   },

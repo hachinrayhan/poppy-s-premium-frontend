@@ -54,6 +54,9 @@ const OrderHistory = () => {
               <p className="text-lg">Quantity: {order.quantity} KG</p>
               <p className="text-lg">Total Price: ${order.totalPrice}</p>
               <p className="text-lg">Status: {order.status}</p>
+              <p className="text-lg">
+                Order Date: {new Date(order.orderDate).toLocaleString()}
+              </p>
             </div>
           ))}
       </div>
