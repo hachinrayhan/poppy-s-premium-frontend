@@ -9,11 +9,14 @@ const AllOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/orders", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://poppys-premium-backend.vercel.app/orders",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         console.log(response.data);
         setOrders(response.data.reverse()); // Reverse the order list
       } catch (error) {
@@ -29,7 +32,7 @@ const AllOrders = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/orders/${orderId}`,
+        `https://poppys-premium-backend.vercel.app/orders/${orderId}`,
         { status: newStatus },
         {
           headers: {

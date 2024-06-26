@@ -22,11 +22,14 @@ const OrderModal = ({ product, setShowModal }) => {
   useEffect(() => {
     const fetchCustomerInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users/email", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://poppys-premium-backend.vercel.app/users/email",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const { name, email, mobileNumber, address } = response.data;
         setCustomerInfo({
           customerName: name,
@@ -69,11 +72,15 @@ const OrderModal = ({ product, setShowModal }) => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/orders", order, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.post(
+        "https://poppys-premium-backend.vercel.app/orders",
+        order,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       console.log("Order response:", response.data);
       toast.success("Order Placed!");
       navigate("/dashboard/user/order-history");
