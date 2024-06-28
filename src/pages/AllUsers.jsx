@@ -10,11 +10,14 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://poppys-premium-backend.vercel.app/users",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -29,7 +32,7 @@ const AllUsers = () => {
   const handleRoleChange = async (userId, newRole) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/users/${userId}/role`,
+        `https://poppys-premium-backend.vercel.app/users/${userId}/role`,
         { role: newRole },
         {
           headers: {
