@@ -19,6 +19,7 @@ import AllProducts from "../pages/AllProducts";
 import ContactUs from "../pages/ContactUs";
 import OrderHistory from "../pages/OrderHistory";
 import AllOrders from "../pages/AllOrders";
+import AllUsers from "../pages/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/all-orders",
         element: <AllOrders />,
+      },
+      {
+        path: "/dashboard/admin/all-users",
+        element: <AllUsers />,
       },
     ],
   },

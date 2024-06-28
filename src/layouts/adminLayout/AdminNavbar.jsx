@@ -58,6 +58,14 @@ const AdminNavbar = () => {
           </li>
           <li className="mt-2">
             <Link
+              to="/dashboard/admin/add-product"
+              className="hover:text-gray-400"
+            >
+              Add Product
+            </Link>
+          </li>
+          <li className="mt-2">
+            <Link
               to="/dashboard/admin/products-list"
               className="hover:text-gray-400"
             >

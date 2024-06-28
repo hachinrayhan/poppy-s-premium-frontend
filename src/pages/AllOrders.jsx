@@ -71,29 +71,38 @@ const AllOrders = () => {
             <p className="text-lg">Customer Mobile: {order.customerMobile}</p>
             <p className="text-lg">Customer Address: {order.customerAddress}</p>
             <p className="text-lg">
-              Order Date: {new Date(order.orderDate).toLocaleString()}
+              Order Date:{" "}
+              {new Date(order.orderDate).toLocaleString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+              })}
             </p>
-            <div className="flex space-x-2 mt-4">
+            <div className="space-y-2 mt-4">
               <button
-                className="btn btn-info"
+                className="btn btn-info w-full md:w-fit mr-0 md:mr-2"
                 onClick={() => handleStatusChange(order._id, "Confirmed")}
               >
                 Mark as Confirmed
               </button>
               <button
-                className="btn btn-primary"
+                className="btn btn-primary w-full md:w-fit mr-0 md:mr-2"
                 onClick={() => handleStatusChange(order._id, "Shipped")}
               >
                 Mark as Shipped
               </button>
               <button
-                className="btn btn-success"
+                className="btn btn-success w-full md:w-fit mr-0 md:mr-2"
                 onClick={() => handleStatusChange(order._id, "Delivered")}
               >
                 Mark as Delivered
               </button>
               <button
-                className="btn btn-warning"
+                className="btn btn-warning w-full md:w-fit mr-0 md:mr-2"
                 onClick={() => handleStatusChange(order._id, "Cancelled")}
               >
                 Mark as Cancelled

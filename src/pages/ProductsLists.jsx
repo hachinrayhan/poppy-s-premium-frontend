@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductManageCard from "./ProductManageCard";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -12,6 +14,7 @@ const ProductsList = () => {
           "https://poppys-premium-backend.vercel.app/products"
         );
         setProducts(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -23,6 +26,10 @@ const ProductsList = () => {
   const refetch = (id) => {
     setProducts(products.filter((product) => product._id !== id));
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="container mx-auto p-4">
