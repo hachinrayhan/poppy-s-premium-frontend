@@ -20,6 +20,7 @@ import ContactUs from "../pages/ContactUs";
 import OrderHistory from "../pages/OrderHistory";
 import AllOrders from "../pages/AllOrders";
 import AllUsers from "../pages/AllUsers";
+import ReportsAndAnalytics from "../pages/ReportsAndAnalytics";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/all-users",
         element: <AllUsers />,
+      },
+      {
+        path: "/dashboard/admin/reports-analytics",
+        element: <ReportsAndAnalytics />,
       },
     ],
   },

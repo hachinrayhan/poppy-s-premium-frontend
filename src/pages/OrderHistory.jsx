@@ -58,7 +58,16 @@ const OrderHistory = () => {
               <p className="text-lg">Total Price: ${order.totalPrice}</p>
               <p className="text-lg">Status: {order.status}</p>
               <p className="text-lg">
-                Order Date: {new Date(order.orderDate).toLocaleString()}
+                Order Date:{" "}
+                {new Date(order.orderDate).toLocaleString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+                })}
               </p>
             </div>
           ))}
