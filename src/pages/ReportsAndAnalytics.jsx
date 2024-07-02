@@ -142,8 +142,8 @@ const ReportsAndAnalytics = () => {
       {
         label: "Monthly Registrations",
         data: monthlyRegistrationsData.map((month) => month.count),
-        backgroundColor: "#42A5F5",
-        hoverBackgroundColor: "#64B5F6",
+        backgroundColor: "#674ea7",
+        hoverBackgroundColor: "#8e7cc3",
       },
     ],
   };
