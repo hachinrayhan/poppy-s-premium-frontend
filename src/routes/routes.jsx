@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./AdminProtectedRoute";
 import UserDashboard from "../pages/dashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import AdminLayout from "../layouts/adminLayout/AdminLayout";
@@ -21,6 +21,8 @@ import OrderHistory from "../pages/OrderHistory";
 import AllOrders from "../pages/AllOrders";
 import AllUsers from "../pages/AllUsers";
 import ReportsAndAnalytics from "../pages/ReportsAndAnalytics";
+import UserProtectedRoute from "./UserProtectedRoute";
+import AdminProtectedRoute from "./AdminProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -61,9 +63,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/admin",
     element: (
-      <ProtectedRoute>
+      <AdminProtectedRoute>
         <AdminLayout />
-      </ProtectedRoute>
+      </AdminProtectedRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
@@ -108,9 +110,9 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/user",
     element: (
-      <ProtectedRoute>
+      <UserProtectedRoute>
         <UserLayout />
-      </ProtectedRoute>
+      </UserProtectedRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
