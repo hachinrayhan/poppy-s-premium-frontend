@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  const [dbUser, setDBUser] = useState(null);
+  const [dbUser, setDBUser] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ const Navbar = () => {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setDBUser(data);
           setLoading(false);
         })
