@@ -1,31 +1,8 @@
-import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { user } = useAuth();
-  const [profile, setProfile] = useState({});
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(
-          `https://poppys-premium-backend.vercel.app/users/email/${user.email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        setProfile(response.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-
-    fetchProfile();
-  }, [user]);
+  const { dbUser } = useAuth();
 
   return (
     <div className="container mx-auto p-4">
@@ -36,7 +13,7 @@ const ProfilePage = () => {
             Name
           </label>
           <p className="mt-1 text-lg font-semibold text-gray-900">
-            {profile.name}
+            {dbUser.name}
           </p>
         </div>
         <div className="mb-4">
@@ -44,7 +21,7 @@ const ProfilePage = () => {
             Email
           </label>
           <p className="mt-1 text-lg font-semibold text-gray-900">
-            {profile.email}
+            {dbUser.email}
           </p>
         </div>
         <div className="mb-4">
@@ -52,7 +29,7 @@ const ProfilePage = () => {
             Date of Birth
           </label>
           <p className="mt-1 text-lg font-semibold text-gray-900">
-            {profile.dateOfBirth}
+            {dbUser.dateOfBirth}
           </p>
         </div>
         <div className="mb-4">
@@ -60,7 +37,7 @@ const ProfilePage = () => {
             Address
           </label>
           <p className="mt-1 text-lg font-semibold text-gray-900">
-            {profile.address}
+            {dbUser.address}
           </p>
         </div>
         <div className="mb-4">
@@ -68,12 +45,12 @@ const ProfilePage = () => {
             Mobile Number
           </label>
           <p className="mt-1 text-lg font-semibold text-gray-900">
-            {profile.mobileNumber}
+            {dbUser.mobileNumber}
           </p>
         </div>
         <Link
           to={
-            profile?.role === "admin"
+            dbUser?.role === "admin"
               ? "/dashboard/admin/update-profile"
               : "/dashboard/user/update-profile"
           }
