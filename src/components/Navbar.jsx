@@ -1,12 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
-  const [dbUser, setDBUser] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { user, dbUser, loading, logOut } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -14,26 +11,6 @@ const Navbar = () => {
     toast("You have logged out. See you soon!");
     navigate("/");
   };
-
-  useEffect(() => {
-    if (user?.email) {
-      fetch(
-        `https://poppys-premium-backend.vercel.app/users/email/${user.email}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setDBUser(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [user?.email]);
 
   const navItems = (
     <>

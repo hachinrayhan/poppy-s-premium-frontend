@@ -17,6 +17,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [dbUser, setDbUser] = useState(null);
 
   const googleProvider = new GoogleAuthProvider();
   const googleLogin = () => signInWithPopup(auth, googleProvider);
@@ -33,25 +34,44 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     await signOut(auth);
-    return setUser(null);
+    setUser(null);
+    setDbUser(null);
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+
       if (currentUser) {
-        setUser(currentUser);
-        setLoading(false);
-        console.log(currentUser);
+        try {
+          const response = await fetch(
+            `https://poppys-premium-backend.vercel.app/users/email/${currentUser.email}`
+          );
+          const data = await response.json();
+          setDbUser(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching dbUser:", error);
+        }
       } else {
+        setDbUser(null);
         setLoading(false);
       }
-      return () => {
-        return unsubscribe();
-      };
     });
+
+    return () => unsubscribe();
   }, []);
 
-  const authInfo = { user, loading, googleLogin, createUser, signIn, logOut };
+  const authInfo = {
+    user,
+    dbUser,
+    loading,
+    googleLogin,
+    createUser,
+    signIn,
+    logOut,
+  };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

@@ -1,66 +1,41 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-/* eslint-disable react/prop-types */
 const OrderModal = ({ product, setShowModal }) => {
+  const { dbUser } = useAuth();
+  const navigate = useNavigate();
+
   const [customerInfo, setCustomerInfo] = useState({
-    customerName: "",
-    customerEmail: "",
-    customerMobileNumber: "",
-    customerAddress: "",
+    customerName: dbUser?.name || "",
+    customerEmail: dbUser?.email || "",
+    customerMobileNumber: dbUser?.mobileNumber || "",
+    customerAddress: dbUser?.address || "",
   });
 
-  const { customerName, customerEmail, customerMobile, customerAddress } =
-    customerInfo;
   const [quantity, setQuantity] = useState(1);
-  const totalPrice = (product.price * quantity).toFixed(2);
-  const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchCustomerInfo = async () => {
-      try {
-        const response = await axios.get(
-          "https://poppys-premium-backend.vercel.app/users/email",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        const { name, email, mobileNumber, address } = response.data;
-        setCustomerInfo({
-          customerName: name,
-          customerEmail: email,
-          customerMobile: mobileNumber,
-          customerAddress: address,
-        });
-      } catch (error) {
-        console.error("Error fetching customer info:", error);
-      }
-    };
+  const totalPrice = (product.price * quantity).toFixed(2);
 
-    fetchCustomerInfo();
-  }, []);
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  const handleCloseModal = () => setShowModal(false);
 
   const handleConfirmOrder = async () => {
     setError("");
-    // Validate customer info
+
     if (
-      !customerName ||
-      !customerEmail ||
-      !customerMobile ||
-      !customerAddress
+      !customerInfo.customerName ||
+      !customerInfo.customerEmail ||
+      !customerInfo.customerMobileNumber ||
+      !customerInfo.customerAddress
     ) {
       setError("All fields are required.");
       return;
     }
+
     const order = {
       productId: product._id,
       productName: product.name,
@@ -72,7 +47,7 @@ const OrderModal = ({ product, setShowModal }) => {
     };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "https://poppys-premium-backend.vercel.app/orders",
         order,
         {
@@ -81,13 +56,13 @@ const OrderModal = ({ product, setShowModal }) => {
           },
         }
       );
-      console.log("Order response:", response.data);
+
       toast.success("Order Placed!");
       navigate("/dashboard/user/order-history");
       setShowModal(false);
     } catch (error) {
       console.error("Error confirming order:", error);
-      alert("Failed to confirm order. Please try again.");
+      toast.error("Failed to confirm order. Please try again.");
     }
   };
 
@@ -96,6 +71,16 @@ const OrderModal = ({ product, setShowModal }) => {
     const { name, value } = e.target;
     setCustomerInfo((prev) => ({ ...prev, [name]: value }));
   };
+
+  const incrementQuantity = useCallback(
+    () => setQuantity((prev) => prev + 1),
+    []
+  );
+  const decrementQuantity = useCallback(
+    () => setQuantity((prev) => Math.max(1, prev - 1)),
+    []
+  );
+
   return (
     <div className="fixed inset-0 overflow-y-auto bg-gray-600 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[95vh] overflow-y-auto">
@@ -110,16 +95,13 @@ const OrderModal = ({ product, setShowModal }) => {
         <div className="flex items-center justify-between mb-4">
           <button
             className="btn btn-secondary"
-            onClick={() => setQuantity(quantity - 1)}
+            onClick={decrementQuantity}
             disabled={quantity <= 1}
           >
             -
           </button>
           <span className="text-xl">{quantity} KG</span>
-          <button
-            className="btn btn-secondary"
-            onClick={() => setQuantity(quantity + 1)}
-          >
+          <button className="btn btn-secondary" onClick={incrementQuantity}>
             +
           </button>
         </div>
@@ -131,7 +113,7 @@ const OrderModal = ({ product, setShowModal }) => {
           <input
             type="text"
             name="customerName"
-            value={customerName}
+            value={customerInfo.customerName}
             onChange={handleChange}
             placeholder="Name"
             className="input input-bordered w-full"
@@ -139,15 +121,15 @@ const OrderModal = ({ product, setShowModal }) => {
           <input
             type="email"
             name="customerEmail"
-            value={customerEmail}
+            value={customerInfo.customerEmail}
             onChange={handleChange}
             placeholder="Email"
             className="input input-bordered w-full"
           />
           <input
             type="text"
-            name="customerMobile"
-            value={customerMobile}
+            name="customerMobileNumber"
+            value={customerInfo.customerMobileNumber}
             onChange={handleChange}
             placeholder="Mobile Number"
             className="input input-bordered w-full"
@@ -155,7 +137,7 @@ const OrderModal = ({ product, setShowModal }) => {
           <input
             type="text"
             name="customerAddress"
-            value={customerAddress}
+            value={customerInfo.customerAddress}
             onChange={handleChange}
             placeholder="Address"
             className="input input-bordered w-full"
