@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [dbUser, setDBUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,11 +16,22 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://poppys-premium-backend.vercel.app/users/email/${user?.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => setDBUser(data));
+    if (user?.email) {
+      fetch(
+        `https://poppys-premium-backend.vercel.app/users/email/${user.email}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setDBUser(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
   }, [user?.email]);
 
   const navItems = (
@@ -35,7 +47,7 @@ const Navbar = () => {
       </li>
       {user ? (
         <>
-          {dbUser?.role === "admin" ? (
+          {!loading && dbUser.role === "admin" ? (
             <li>
               <Link to={"/dashboard/admin"}>Dashboard</Link>
             </li>
@@ -55,6 +67,7 @@ const Navbar = () => {
       )}
     </>
   );
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -106,7 +119,7 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-compact dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {dbUser?.role === "admin" ? (
+              {!loading && dbUser.role === "admin" ? (
                 <>
                   <li>
                     <Link to={"/dashboard/admin/profile"}>Profile</Link>

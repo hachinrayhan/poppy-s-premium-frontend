@@ -32,7 +32,7 @@ const ReportsAndAnalytics = () => {
     const fetchOrderStatusData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/reports/order-status",
+          "https://poppys-premium-backend.vercel.app/reports/order-status",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,7 +49,7 @@ const ReportsAndAnalytics = () => {
     const fetchWeeklyRegistrationsData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/reports/weekly-registrations",
+          "https://poppys-premium-backend.vercel.app/reports/weekly-registrations",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -65,7 +65,7 @@ const ReportsAndAnalytics = () => {
     const fetchMonthlyRegistrationsData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/reports/monthly-registrations",
+          "https://poppys-premium-backend.vercel.app/reports/monthly-registrations",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

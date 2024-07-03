@@ -67,6 +67,14 @@ const AdminSidebar = () => {
               </Link>
             </li>
             <li className="mt-2">
+              <Link
+                to="/dashboard/admin/reports-analytics"
+                className="hover:text-gray-400"
+              >
+                View Reports
+              </Link>
+            </li>
+            <li className="mt-2">
               <Link to="/" className="hover:text-gray-400">
                 Home
               </Link>
