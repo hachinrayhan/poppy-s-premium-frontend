@@ -7,7 +7,7 @@ const UserNavbar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     logOut();
-    toast("You have logged out. See you soon!");
+    toast.success("You have logged out. See you soon!");
     navigate("/");
   };
   return (

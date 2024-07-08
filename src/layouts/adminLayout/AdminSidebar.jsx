@@ -7,7 +7,7 @@ const AdminSidebar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     logOut();
-    toast("You have logged out. See you soon!");
+    toast.success("You have logged out. See you soon!");
     navigate("/");
   };
   return (
@@ -16,6 +16,11 @@ const AdminSidebar = () => {
         <Link to={"/dashboard/admin"} className="text-2xl font-bold">
           Admin Dashboard
         </Link>
+        <input
+          type="text"
+          className="grow input input-bordered input-sm mt-4 text-black"
+          placeholder="Search Order by Order ID, Customer Email or Mobile"
+        />
         <nav className="mt-4">
           <ul>
             <li className="mt-2">

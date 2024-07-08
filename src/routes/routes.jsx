@@ -3,7 +3,6 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
-import ProtectedRoute from "./AdminProtectedRoute";
 import UserDashboard from "../pages/dashboard/UserDashboard";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import AdminLayout from "../layouts/adminLayout/AdminLayout";
@@ -23,6 +22,7 @@ import AllUsers from "../pages/AllUsers";
 import ReportsAndAnalytics from "../pages/ReportsAndAnalytics";
 import UserProtectedRoute from "./UserProtectedRoute";
 import AdminProtectedRoute from "./AdminProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
