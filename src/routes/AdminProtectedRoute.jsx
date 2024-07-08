@@ -11,7 +11,7 @@ const AdminProtectedRoute = ({ children }) => {
     return <LoadingSpinner />;
   }
 
-  if (!user || dbUser.role !== "admin") {
+  if (!user || dbUser?.role !== "admin") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

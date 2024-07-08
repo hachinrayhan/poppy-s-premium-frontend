@@ -11,7 +11,7 @@ const UserProtectedRoute = ({ children }) => {
     return <LoadingSpinner />;
   }
 
-  if (!user || dbUser.role !== "user") {
+  if (!user || dbUser?.role !== "user") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

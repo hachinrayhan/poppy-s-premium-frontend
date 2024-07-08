@@ -47,11 +47,16 @@ const AuthProvider = ({ children }) => {
           const response = await fetch(
             `https://poppys-premium-backend.vercel.app/users/email/${currentUser.email}`
           );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
           const data = await response.json();
           setDbUser(data);
-          setLoading(false);
         } catch (error) {
           console.error("Error fetching dbUser:", error);
+          setDbUser(null);
+        } finally {
+          setLoading(false);
         }
       } else {
         setDbUser(null);

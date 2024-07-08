@@ -55,7 +55,7 @@ const Navbar = () => {
       </li>
       {user ? (
         <>
-          {!loading && dbUser.role === "admin" ? (
+          {!loading && dbUser?.role === "admin" ? (
             <li>
               <Link to={"/dashboard/admin"}>Dashboard</Link>
             </li>
@@ -147,7 +147,7 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-compact dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {!loading && dbUser.role === "admin" ? (
+              {!loading && dbUser?.role === "admin" ? (
                 <>
                   <li>
                     <Link to={"/dashboard/admin/profile"}>Profile</Link>
