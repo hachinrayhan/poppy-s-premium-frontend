@@ -12,7 +12,7 @@ const OrderModal = ({ product, setShowModal }) => {
   const [customerInfo, setCustomerInfo] = useState({
     customerName: dbUser?.name || "",
     customerEmail: dbUser?.email || "",
-    customerMobileNumber: dbUser?.mobileNumber || "",
+    customerMobile: dbUser?.mobileNumber || "",
     customerAddress: dbUser?.address || "",
   });
 
@@ -29,7 +29,7 @@ const OrderModal = ({ product, setShowModal }) => {
     if (
       !customerInfo.customerName ||
       !customerInfo.customerEmail ||
-      !customerInfo.customerMobileNumber ||
+      !customerInfo.customerMobile ||
       !customerInfo.customerAddress
     ) {
       setError("All fields are required.");
@@ -128,8 +128,8 @@ const OrderModal = ({ product, setShowModal }) => {
           />
           <input
             type="text"
-            name="customerMobileNumber"
-            value={customerInfo.customerMobileNumber}
+            name="customerMobile"
+            value={customerInfo.customerMobile}
             onChange={handleChange}
             placeholder="Mobile Number"
             className="input input-bordered w-full"

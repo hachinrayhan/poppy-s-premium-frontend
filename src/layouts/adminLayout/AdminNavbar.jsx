@@ -13,7 +13,7 @@ const AdminNavbar = () => {
   return (
     <div className="md:hidden bg-gray-800 text-white p-4">
       <div className="flex justify-between items-center">
-        <Link to={"/dashboard/admin"} className="text-2xl font-bold">
+        <Link to={"/dashboard/admin"} className="text-xl font-bold">
           Admin Dashboard
         </Link>
         <button
