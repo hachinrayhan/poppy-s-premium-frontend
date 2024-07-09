@@ -38,6 +38,10 @@ const AuthProvider = ({ children }) => {
     setDbUser(null);
   };
 
+  const updateDbUser = (updatedUser) => {
+    setDbUser(updatedUser);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -47,9 +51,6 @@ const AuthProvider = ({ children }) => {
           const response = await fetch(
             `https://poppys-premium-backend.vercel.app/users/email/${currentUser.email}`
           );
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
           const data = await response.json();
           setDbUser(data);
         } catch (error) {
@@ -70,6 +71,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     dbUser,
+    updateDbUser,
     loading,
     googleLogin,
     createUser,

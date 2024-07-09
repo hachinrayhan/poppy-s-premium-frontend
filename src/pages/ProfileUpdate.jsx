@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ProfileUpdate = () => {
-  const { dbUser } = useAuth();
+  const { dbUser, updateDbUser } = useAuth();
   const [profile, setProfile] = useState(dbUser);
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const ProfileUpdate = () => {
     e.preventDefault();
     const { _id, ...updatedProfile } = profile;
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `https://poppys-premium-backend.vercel.app/users/${_id}`,
         updatedProfile,
         {
@@ -26,9 +26,10 @@ const ProfileUpdate = () => {
           },
         }
       );
+      updateDbUser(profile);
       toast.success("Updated Profile Successfully!");
       navigate(
-        profile?.role === "admin"
+        response.data.role === "admin"
           ? "/dashboard/admin/profile"
           : "/dashboard/user/profile"
       );
