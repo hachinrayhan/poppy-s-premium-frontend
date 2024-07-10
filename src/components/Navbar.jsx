@@ -23,9 +23,9 @@ const Navbar = () => {
     if (searchKey) {
       try {
         const response = await axios.get(
-          "http://localhost:5000/search/products",
+          "https://poppys-premium-backend.vercel.app/search/products",
           {
-            params: { name: searchKey, category: searchKey },
+            params: { searchKey: searchKey },
           }
         );
         setSearchResults(response.data);

@@ -1,15 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useSearchOrders from "../../hooks/useSearchOrders";
 
 const AdminSidebar = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  const { searchKey, searchResults, handleSearch, handleResultClick } =
+    useSearchOrders();
+
   const handleLogout = () => {
     logOut();
     toast.success("You have logged out. See you soon!");
     navigate("/");
   };
+
   return (
     <div className="hidden md:block w-64 h-full bg-gray-800 text-white fixed">
       <div className="p-4">
@@ -18,7 +23,8 @@ const AdminSidebar = () => {
         </Link>
         <input
           type="text"
-          className="grow input input-bordered input-sm mt-4 text-black"
+          onChange={handleSearch}
+          className="grow input input-bordered input-sm mt-4 text-black w-48"
           placeholder="Search Order by Order ID, Customer Email or Mobile"
         />
         <nav className="mt-4">
@@ -92,6 +98,38 @@ const AdminSidebar = () => {
           </ul>
         </nav>
       </div>
+      {searchKey && (
+        <div className="absolute top-16 left-52 bg-white shadow-lg rounded-md w-96 p-4 z-[1] max-h-64 overflow-y-auto">
+          {searchResults.length > 0 ? (
+            <ul>
+              {searchResults
+                .slice()
+                .reverse()
+                .map((order, i) => (
+                  <li key={order._id} className="p-2 border-b">
+                    <Link
+                      to={`/orders/${order._id}`}
+                      onClick={handleResultClick}
+                      className="flex items-center"
+                    >
+                      <div className="avatar placeholder">
+                        <div className="bg-neutral text-neutral-content w-8 rounded-full">
+                          <span className="text-xs">{i + 1}</span>
+                        </div>
+                      </div>
+                      <div className="ml-3 text-black">
+                        <p>Customer: {order.customerName}</p>
+                        <p>Product: {order.productName}</p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          ) : (
+            <p className="text-black">No results found</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
