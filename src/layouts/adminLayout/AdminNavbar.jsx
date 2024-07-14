@@ -2,12 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import useSearchOrders from "../../hooks/useSearchOrders";
+import SearchOrdersResults from "../../components/SearchOrdersResults";
 
 const AdminNavbar = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
-  const { searchKey, searchResults, handleSearch, handleResultClick } =
-    useSearchOrders();
+  const { searchKey, searchResults, handleSearch } = useSearchOrders();
 
   const handleLogout = () => {
     logOut();
@@ -104,29 +104,18 @@ const AdminNavbar = () => {
         </ul>
       </nav>
       {searchKey && (
-        <div className="absolute top-12 right-4 left-4 bg-white shadow-lg rounded-md max-w-screen-md p-4 z-[1] max-h-64 overflow-y-auto">
+        <div className="absolute top-12 right-4 left-4 bg-white shadow-lg rounded-md max-w-screen-md p-4 z-[1] max-h-64 overflow-y-auto search-results-container">
           {searchResults.length > 0 ? (
             <ul>
               {searchResults
                 .slice()
                 .reverse()
                 .map((order, i) => (
-                  <li key={order._id} className="p-2 border-b">
-                    <Link
-                      to={`/orders/${order._id}`}
-                      onClick={handleResultClick}
-                      className="flex items-center"
-                    >
-                      <div className="avatar placeholder">
-                        <div className="bg-neutral text-neutral-content w-8 rounded-full">
-                          <span className="text-xs">{i + 1}</span>
-                        </div>
-                      </div>
-                      <div className="ml-3 text-black">
-                        <p>Customer: {order.customerName}</p>
-                        <p>Product: {order.productName}</p>
-                      </div>
-                    </Link>
+                  <li
+                    key={order._id}
+                    className="p-2 border-b flex items-center"
+                  >
+                    <SearchOrdersResults order={order} i={i} />
                   </li>
                 ))}
             </ul>

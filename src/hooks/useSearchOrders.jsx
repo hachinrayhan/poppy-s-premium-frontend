@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import debounce from "lodash/debounce";
 
@@ -30,19 +30,41 @@ const useSearchOrders = () => {
         setSearchResults([]);
       }
     }, 1000),
-    [] // dependencies array is empty to ensure the debounce function is not recreated on each render
+    []
   );
 
-  const handleResultClick = () => {
+  const clearSearchResults = () => {
     setSearchResults([]);
     setSearchKey("");
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        clearSearchResults();
+      }
+    };
+
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".search-results-container")) {
+        clearSearchResults();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return {
     searchKey,
     searchResults,
     handleSearch,
-    handleResultClick,
+    clearSearchResults,
   };
 };
 

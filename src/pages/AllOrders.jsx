@@ -1,55 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+import useStatusChange from "../hooks/useStatusChange";
 
 const AllOrders = () => {
-  const [orders, setOrders] = useState([]);
-  const [loadingOrders, setLoadingOrders] = useState(true);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get(
-          "https://poppys-premium-backend.vercel.app/orders",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        console.log(response.data);
-        setOrders(response.data.reverse()); // Reverse the order list
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoadingOrders(false);
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
-  const handleStatusChange = async (orderId, newStatus) => {
-    try {
-      const response = await axios.patch(
-        `https://poppys-premium-backend.vercel.app/orders/${orderId}`,
-        { status: newStatus },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order._id === orderId ? { ...order, status: newStatus } : order
-        )
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error updating order status:", error);
-    }
-  };
+  const { orders, loadingOrders, handleStatusChange } = useStatusChange();
 
   if (loadingOrders) {
     return <LoadingSpinner />;
