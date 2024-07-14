@@ -1,8 +1,25 @@
 import LoadingSpinner from "../components/LoadingSpinner";
 import useStatusChange from "../hooks/useStatusChange";
+import { useState, useEffect } from "react";
 
 const AllOrders = () => {
   const { orders, loadingOrders, handleStatusChange } = useStatusChange();
+  const [searchKey, setSearchKey] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState([]);
+
+  useEffect(() => {
+    if (!searchKey) {
+      setFilteredOrders([]);
+    } else {
+      const filtered = orders.filter(
+        (order) =>
+          order._id.includes(searchKey) ||
+          order.customerEmail.includes(searchKey) ||
+          order.customerMobile.includes(searchKey)
+      );
+      setFilteredOrders(filtered);
+    }
+  }, [orders, searchKey]);
 
   if (loadingOrders) {
     return <LoadingSpinner />;
@@ -10,10 +27,21 @@ const AllOrders = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-4">All Orders</h2>
-      {orders.length === 0 && <p className="text-lg">No orders found.</p>}
+      <input
+        type="text"
+        value={searchKey}
+        onChange={(e) => setSearchKey(e.target.value)}
+        className="input input-bordered input-sm mb-4 text-black w-full"
+        placeholder="Search Order by Order ID, Customer Email or Mobile"
+      />
+      <h2 className="text-3xl font-bold mb-4">
+        {searchKey ? `Search Results for ${searchKey}` : "All Orders"}
+      </h2>
+      {searchKey && filteredOrders.length === 0 && (
+        <p className="text-lg">No orders found.</p>
+      )}
       <div className="space-y-4">
-        {orders.map((order) => (
+        {(searchKey ? filteredOrders : orders).map((order) => (
           <div key={order._id} className="bg-white shadow-md rounded-lg p-4">
             <h3 className="text-xl font-bold mb-2">{order.productName}</h3>
             <p className="text-lg">Quantity: {order.quantity} KG</p>

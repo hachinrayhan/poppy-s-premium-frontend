@@ -1,13 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import useSearchOrders from "../../hooks/useSearchOrders";
-import SearchOrdersResults from "../../components/SearchOrdersResults";
 
 const AdminNavbar = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
-  const { searchKey, searchResults, handleSearch } = useSearchOrders();
 
   const handleLogout = () => {
     logOut();
@@ -21,12 +18,6 @@ const AdminNavbar = () => {
         <Link to={"/dashboard/admin"} className="text-md font-bold">
           Admin Dashboard
         </Link>
-        <input
-          type="text"
-          onChange={handleSearch}
-          className="grow input input-bordered input-sm max-w-40 text-black"
-          placeholder="Search Order by Order Id, Customer Email or Mobile Number"
-        />
         <button
           onClick={() =>
             document.getElementById("admin-menu").classList.toggle("hidden")
@@ -103,27 +94,6 @@ const AdminNavbar = () => {
           </li>
         </ul>
       </nav>
-      {searchKey && (
-        <div className="absolute top-12 right-4 left-4 bg-white shadow-lg rounded-md max-w-screen-md p-4 z-[1] max-h-64 overflow-y-auto search-results-container">
-          {searchResults.length > 0 ? (
-            <ul>
-              {searchResults
-                .slice()
-                .reverse()
-                .map((order, i) => (
-                  <li
-                    key={order._id}
-                    className="p-2 border-b flex items-center"
-                  >
-                    <SearchOrdersResults order={order} i={i} />
-                  </li>
-                ))}
-            </ul>
-          ) : (
-            <p className="text-black">No results found</p>
-          )}
-        </div>
-      )}
     </div>
   );
 };

@@ -40,7 +40,6 @@ const useStatusChange = () => {
         }
       );
       toast.success(`Status updated to ${newStatus}`);
-      console.log("Status updated to", newStatus);
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order._id === orderId ? { ...order, status: newStatus } : order
