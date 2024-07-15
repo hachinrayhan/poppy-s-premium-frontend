@@ -17,7 +17,7 @@ const ProfileUpdate = () => {
     e.preventDefault();
     const { _id, ...updatedProfile } = profile;
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `https://poppys-premium-backend.vercel.app/users/${_id}`,
         updatedProfile,
         {
@@ -29,7 +29,7 @@ const ProfileUpdate = () => {
       updateDbUser(profile);
       toast.success("Updated Profile Successfully!");
       navigate(
-        response.data.role === "admin"
+        dbUser.role === "admin"
           ? "/dashboard/admin/profile"
           : "/dashboard/user/profile"
       );
